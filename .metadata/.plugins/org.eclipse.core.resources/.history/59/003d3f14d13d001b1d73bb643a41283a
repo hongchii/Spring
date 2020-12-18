@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<style type="text/css">
+	
+	    table{
+	    border:1px solid gray;
+	    margin:0 auto;
+	    border-collapse: collapse;
+	    }
+	    td{
+	    border: 1px solid gray;
+	    }
+   </style>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+	
+	<script>
+    function fnGetdata(){
+        var obj = $("[name=SEQ_CHK]");
+        var chkArray = new Array(); // 배열 선언
+ 
+        $('input:checkbox[name=SEQ_CHK]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+            chkArray.push(this.value);
+        });
+        $('#hiddenValue').val(chkArray);
+        
+        alert($('#hiddenValue').val()); // 아래 체크박스가 모두 체크되어 있다면 1,2,3,4 가 출력 된다.
+        
+    }
+ 
+</script>
+<body>
+    <tr>
+        <td>
+            <input type="checkbox" name="SEQ_CHK" id="SEQ_CHK" value="1"/>
+            <input type="checkbox" name="SEQ_CHK" id="SEQ_CHK" value="2"/>
+            <input type="checkbox" name="SEQ_CHK" id="SEQ_CHK" value="3"/>
+            <input type="checkbox" name="SEQ_CHK" id="SEQ_CHK" value="4"/>
+            <input type="hidden" name="hiddenValue" id="hiddenValue" value=""/>
+        </td>
+        <td>
+            <input type="button" name="btn" id="btn" onclick="fnGetdata();"/>
+        </td>
+    </tr>
+</body>
+</html>

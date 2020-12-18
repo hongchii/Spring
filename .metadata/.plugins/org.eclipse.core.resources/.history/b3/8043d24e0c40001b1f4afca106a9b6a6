@@ -1,0 +1,15 @@
+package com.spring.boottest;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class IndexController {
+	
+	@RequestMapping("/index")
+	public String index() {
+		System.out.println("?");
+		
+		return "index";
+	}
+	
+}

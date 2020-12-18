@@ -1,0 +1,11 @@
+package com.spring.springemp;
+
+import java.util.HashMap;
+import java.util.List;
+
+public interface EmpService {
+	List<EmpVO> getList();
+	//List<EmpVO> getDeptno(int deptno);
+	List<EmpVO> getJob(String job);
+	public void getDeptno(HashMap<String, Object> hashmap);
+}

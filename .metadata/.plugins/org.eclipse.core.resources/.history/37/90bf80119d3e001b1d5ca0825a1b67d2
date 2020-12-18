@@ -1,0 +1,92 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<html>
+<head>
+<title>Home</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function selectEmp() {
+				$('#output').empty();
+				var form ='<tr><td>Empno</td><td>Ename</td><td>Job</td><td>Mgr</td><td>Hiredate</td><td>Sal</td><td>Comm</td><td>Deptno</td></tr>';
+				$('#output').append(form);
+	}
+	$(document).ready(function() {	
+		$('[name=selectBtn]').click(function(){
+			if ($("input:checked[Name='deptno']").is(":checked"))
+			{
+				var deptno=[];
+				$("input[name='deptno']:checked").each(function(){
+					dept = $(this).val();
+					deptno.push(dept);
+				});
+				 alert(deptno);
+				 console.log(deptno);
+				 select(deptno);
+			}
+			else{
+				selectEmp();
+			}
+			 });
+			function select(deptno) {
+				$.ajax({
+					url: '/ajax2/select.do',
+					type: 'POST',
+					//dataType : 'json',
+					data: {"deptno":deptno},
+					contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+					success : function(data){
+						$('#output').empty();
+						var form ='<tr><td>Empno</td><td>Ename</td><td>Job</td><td>Mgr</td><td>Hiredate</td><td>Sal</td><td>Comm</td><td>Deptno</td></tr>';
+						$('#output').append(form);
+						$.each(data, function(index, item) {
+							var output = '';
+							output += '<tr align="center">';
+							output += '<td>' + item.empno + '</td>';
+							output += '<td>' + item.ename + '</td>';
+							output += '<td>' + item.job + '</td>';
+							output += '<td>' + item.mgr + '</td>';
+							output += '<td>' + item.hiredate + '</td>';
+							output += '<td>' + item.sal + '</td>';
+							output += '<td>' + item.comm + '</td>';
+							output += '<td>' + item.deptno + '</td>';
+							output += '</tr>';
+							console.log("output:"+form+output);
+							$('#output').append(output);
+						});
+					},
+					error : function() {
+						alert("ajax통신 실패2")
+					}
+				});
+				event.preventDefault();
+			} 
+			selectEmp(); 
+});
+</script>
+</head>
+<body>
+	<h1>Hello world!</h1>
+		<!-- <div class="container">
+			<input type="checkbox" name="job" id="salesman" value="salesman" />
+			<label for="salesman"> salesman</label> <input type="checkbox"
+				name="job" id="clerk" value="clerk" /> <label for="salesman">
+				clerk</label> <input type="checkbox" name="job" id="analyst" value="analyst" />
+			<label for="salesman"> analyst</label> <input type="checkbox"
+				name="job" id="manager" value="manager" /> <label for="salesman">
+				manager</label>
+		</div> -->
+		<form name="selectForm">
+		<div >
+			<input type="checkbox" name="deptno"  value="10" />10
+			<input type="checkbox" name="deptno"  value="20" />20
+			<input type="checkbox" name="deptno"  value="30" />30
+			<input type="submit"  name="selectBtn"  value="조회">
+		</div>
+	</form>
+		<table id="output" border="1">
+		</table>
+</body>
+</html>

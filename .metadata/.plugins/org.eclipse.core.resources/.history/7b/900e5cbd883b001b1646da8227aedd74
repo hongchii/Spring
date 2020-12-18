@@ -1,0 +1,8 @@
+package com.spring.springemp;
+
+import java.util.List;
+
+public interface EmpService {
+	List<EmpVO> getList();
+	List<EmpVO> getDeptno(EmpVO vo);
+}
